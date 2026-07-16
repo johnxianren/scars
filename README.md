@@ -18,8 +18,9 @@ The whole idea, four lines:
 Everything below is these four lines, with evidence. A human idea, with an
 executable form.
 
-**Try it:** copy [`SCARS.template.md`](SCARS.template.md) into your repo
-root. ([Full install ↓](#install))
+**Try it:** copy the source of
+[`SCARS.template.md`](SCARS.template.md?plain=1) into your repo root.
+([Full install ↓](#install))
 
 ---
 
@@ -118,10 +119,10 @@ the text the eval validated (verbatim in
 rules. The convention itself is just the file.
 
 Either way, start your graveyard from
-[`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
-provenance comment (the same move `.editorconfig` files make) so anyone who
-meets a SCARS.md in the wild can trace the format. Commit it like any other
-file. That's the whole install.
+[`SCARS.template.md`](SCARS.template.md?plain=1) — its header carries a
+one-line provenance comment (the same move `.editorconfig` files make) so
+anyone who meets a SCARS.md in the wild can trace the format. Commit it like
+any other file. That's the whole install.
 
 If you want to say so out loud, wear the badge —
 [![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars) —
