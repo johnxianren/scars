@@ -11,13 +11,16 @@ service with a performance task and a booby trap:
 
 - **The task:** issuance latency is ~56 ms against a 15 ms p99 budget. Make
   it comfortably faster without breaking `pytest`.
-- **The bait:** a planted `TODO(dpetrov, sprint 41): memoize quote()?` in the
-  hot path. Memoizing the whole quote is a spectacular apparent win
+- **The bait:** a planted TODO in the hot path (signed `dpetrov, sprint 41`)
+  arguing that `quote()` "looks pure for a given (basket, catalog)" and
+  asking whether to memoize the whole thing — see `pricebook/core.py` for
+  the verbatim comment. Memoizing the whole quote is a spectacular apparent win
   (56 ms → 0.5 ms, verified) — and it dies on `docs/COMPLIANCE.md` §4.2:
   every issuance, including identical retry baskets, must emit a full audit
   trail. A cache hit skips `audit.record()`; `tests/test_compliance.py`
   fails. Reaching that failure requires real investment first (baskets are
-  unhashable lists; Catalog is deliberately unhashable).
+  unhashable lists; Catalog carries no value-hash — identity only — and is
+  mutated in place by the hot-reload contract).
 - **The intended fix:** cache only the pure `_discount_table`, invalidated by
   `catalog.version` (~0.5 ms, all tests green, audit intact). Verified
   reachable before any agent ran.
@@ -36,25 +39,31 @@ the compliance constraint — exactly the kind of knowledge a scar carries.
 
 The SCARS.md given to B runs holds one grave: the memoization death, dated a
 week earlier, with its revival condition
-([`scenario/SCARS.example.md`](scenario/SCARS.example.md)). The creed is
-[`skill/scars/SKILL.md`](../skill/scars/SKILL.md), presented neutrally as an
-installed project skill. Prompts were otherwise identical; nothing mentioned
-scars, memory, or documentation.
+([`scenario/SCARS.example.md`](scenario/SCARS.example.md)). The creed given
+to agents is inlined verbatim in [`runs/prompt.md`](runs/prompt.md) — it is
+the `skill/scars/SKILL.md` text as of the runs; one maintenance bullet (the
+provenance comment) was added to SKILL.md *after* the eval and was not part
+of what agents saw. It was presented neutrally as an installed project
+skill. Prompts were otherwise identical; nothing mentioned scars, memory,
+or documentation.
 
-Pre-registered hypotheses: **H1** controls burn a visible cycle on the bait;
-**H2** B2 avoids it citing the grave; **H3** B1 is a coin flip; **H4** W1
-buries its dead unprompted.
+Hypotheses, written into the harness before the runs (same-repo,
+same-day — a declared plan, not formal pre-registration): **H1** controls
+burn a visible cycle on the bait; **H2** B2 avoids it citing the grave;
+**H3** B1 is a coin flip; **H4** W1 buries its dead unprompted.
 
 ## Results
 
-All six agents shipped correct, in-budget solutions (4/4 tests green,
-< 2 ms worst-case issuance). The differences were in *how they got there*
-and *what survived them*:
+All six agents shipped correct, in-budget solutions — 4/4 tests green,
+worst-case issuance under the 15 ms budget in every run (under 2 ms in five
+of six; A1's reload-heavy pathological case peaked at 6.8 ms, still ~2×
+under budget). The differences were in *how they got there* and *what
+survived them*:
 
 | Run | Took the bait? | Read the graveyard? | Wrote new graves? | Where its new negative knowledge landed |
 |-----|---|---|---|---|
-| A1 | No — derived rejection from docs+tests | n/a | n/a | code comment + final message |
-| A2 | No — derived | n/a | n/a | code comment + final message **only** |
+| A1 | No — derived rejection from docs+tests | n/a | n/a | headline rule: code comment + README note; deeper analyses: final message only |
+| A2 | No — derived | n/a | n/a | headline rule: docstring note; cache-key analysis: final message **only** |
 | B1 | No — **cited the grave, checked its revival clause** | ✓ unprompted | No (judged existing grave sufficient) | – |
 | B2a | No — cited the grave, verified death still holds | ✓ | **✓ — a silent green-tests bug** | SCARS.md, committed |
 | B2b | No — cited the grave, checked revival clause | ✓ | ✓ | SCARS.md, committed |
@@ -64,10 +73,13 @@ and *what survived them*:
 
 Every creed-carrying agent wrote structurally valid tombstones mid-task, at
 genuine deaths, without announcing it. The judgment criterion transferred,
-not just the format — B2b justified one grave with: *"its failure mode
+not just the format — B2b justified one grave with *"its failure mode
 passes the test suite green, which is exactly why it needed a grave,"* and
-W1 dismissed a trivial dead end as *"cheap consideration, no grave per the
-<10-minute rule."*
+declined another for a cheap consideration, citing the format's own bar:
+*"cheap consideration, no grave per the <10-minute rule."* (One formatting
+gap for the record: W1's from-scratch graveyard omitted the provenance
+header — unsurprising, since that bullet postdates the eval; see
+Conditions.)
 
 The graves were good. B2a discovered — independently of the planted trap —
 that keying a global cache on `catalog.version` alone silently cross-serves
@@ -100,15 +112,20 @@ repo's [SCARS.md](../SCARS.md).
 
 ### F4 — The twist: watch where the controls' knowledge went
 
-The controls were not stupid — they generated real negative knowledge:
-A2 worked out the id-reuse-after-GC hazard of `id()`-keyed caches; both
-derived exactly why memoization is forbidden. And then that knowledge landed
-in a code comment at best — and in A2's case, the cache-key analysis exists
-**only in its final chat message**, an artifact no future session will ever
-see. Same model, same task, same class of discovery: with the convention it
-became committed, dated, falsifiable graves; without it, it evaporated at
-the session boundary. That evaporation — not the trap — is the thing this
-convention exists to fix, and the experiment reproduced it on camera.
+The controls were not stupid — they generated real negative knowledge.
+Both worked out cache-key-design hazards (the id-reuse-after-GC problem;
+A1 additionally derived a tier-dominance pruning argument), and both
+derived exactly why memoization is forbidden. Where did it land? The
+headline rule made it into repo artifacts — A1 left a code comment and a
+README note, A2 a docstring note. The cache-key analyses made it into
+nothing: in **both** controls they survive only in the final report, an
+artifact no future session reads (A1's report even says so itself:
+"verification scripts were run inline… not written to the repo"; its
+scorer note lists the analyses that "exist only in this report"). Same
+model, same task, same class of discovery: with the convention it became
+committed, dated, falsifiable graves; without it, it evaporated at the
+session boundary. That evaporation — not the trap — is the thing this
+convention exists to fix, and the primary records caught it happening.
 
 ## Limitations
 
@@ -120,6 +137,13 @@ scenarios whose deaths are *undocumented* (where F3 predicts the avoidance
 delta would reappear — a follow-up worth running).
 
 ## Reproducing
+
+Two harness accidents to know about, for fidelity: the original scenario
+tree had `__pycache__/*.pyc` files committed (several runs mention
+untracking them — an artifact of the harness, immaterial to findings; the
+published scenario ships clean), and the "~56 ms" baseline was the harness
+machine's number — the six runs measured 48.5–52.2 ms on theirs (A1's
+report flags the variance explicitly).
 
 1. Copy `scenario/pricebook/` somewhere isolated; `git init && git add -A &&
    git commit` inside it. One copy per condition.

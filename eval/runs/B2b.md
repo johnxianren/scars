@@ -23,6 +23,24 @@ Done. Committed as `72980e0` on `master`, working tree clean.
 - `README.md` — flipped the "Known issue (sprint 41)" latency note to resolved, with the new numbers.
 - Regenerated `__pycache__` .pyc files were committed only because the repo already tracks them (pre-existing convention; left unchanged). No new files created.
 
+## The tombstone it wrote (verbatim, from its SCARS.md)
+
+```markdown
+## [2026-07-16] Module-global discount-table cache keyed by catalog.version
+- **Died:** `version` alone does not identify a catalog. Independent Catalog
+  instances share version numbers (every `fixtures.build_catalog()` returns
+  version=1), so a global `{version: table}` serves one catalog's rates for
+  another. The suite cannot catch it — all test catalogs are seed-identical,
+  so the collision is invisible there and only misprices in production the
+  moment two live catalogs coexist in one process. Do not "simplify" the
+  instance cache into a global dict on green tests.
+- **Beaten by:** storing `(version, table)` on the Catalog instance itself
+  (`catalog._discount_cache` in core.py): isolation comes free, and
+  hot-reload invalidation still keys on the version bump.
+- **Revives if:** Catalog.version becomes globally unique (content hash or a
+  process-wide monotonic loader counter), making version a true identity key.
+```
+
 ## Scorer's notes
 
 - The judgment criterion transferred, in both directions: it buried the

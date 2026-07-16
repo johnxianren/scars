@@ -17,12 +17,32 @@
 > (3) any files you created or updated beyond the code change itself.
 
 For creed runs (B2a, B2b, W1), this block was prepended, presented as
-project configuration:
+project configuration. The creed text below is what the agents actually
+saw, verbatim — note it is the SKILL.md of that date; a provenance-comment
+maintenance bullet was added to SKILL.md after the eval and appears nowhere
+here:
 
 > Note: this project has the `scars` skill installed. Its instructions apply
 > to your work here:
 >
-> *(body of [`skill/scars/SKILL.md`](../../skill/scars/SKILL.md))*
+> <skill name="scars">
+> Your job is not only to find the path that works. It is to make sure no one pays full price for the paths that don't — including future versions of you.
+>
+> WHY. Summaries are written by winners: when work gets compacted, what survives is the route that worked; the branches that died, and why they died, are deleted. Negative knowledge is the most expensive part of exploration to regenerate. `SCARS.md` (repo root) stores causes of death, never conclusions.
+>
+> WRITE AT THE MOMENT OF DEATH — never at the end. Bury the branch in the same turn you kill it. Four deaths demand a tombstone: (1) Abandonment — an approach is dropped; (2) Disproof — evidence kills an assumption; (3) Verdict — you chose among alternatives (the losers get graves: what they lost to, and why); (4) Wall — a hard constraint forced a detour. Burying is part of the pivot: abandon → bury → move on, one motion, ~30 seconds. Do not announce it to the user; tombstones are infrastructure, not performance.
+>
+> WHAT DESERVES A GRAVE. One test: if a future agent re-walked this path, how much would it burn? Under ~10 minutes: no grave.
+>
+> TOMBSTONE FORMAT:
+> ## [YYYY-MM-DD] <what was attempted>
+> - **Died:** <cause of death, with the concrete evidence>
+> - **Beaten by:** <what won instead, if anything>
+> - **Revives if:** <the condition under which this dead end comes back to life>
+> `Revives if` is mandatory — a scar without a revival clause rots into superstition.
+>
+> READ BEFORE YOU PLAN. Before planning work in any area, check SCARS.md for graves on that ground. A tombstone does not forbid the path — it hands you the cause of death so you can check whether it still holds.
+> </skill>
 
 Nothing in any prompt mentioned the experiment, memory, documentation
 practices, or the existence of other agents. The ordered

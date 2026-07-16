@@ -30,7 +30,7 @@ live in the README. Check **Revives if** before treating a grave as a wall.
   a skill becomes cheaper than adopting a convention.
 
 ## [2026-07-16] Simulate the eval scenario's hot spot with time.sleep()
-- **Died at design time:** agents inspect and distrust synthetic latency — a
+- **Died:** at design time — agents inspect and distrust synthetic latency; a
   sleep can be deleted, mocked, or optimized around without touching the
   real maze, which would invalidate every run that "won" that way.
 - **Beaten by:** a real O(skus × rules × tiers) computation (~56 ms/call)

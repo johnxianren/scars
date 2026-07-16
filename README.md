@@ -91,14 +91,17 @@ Scars are case law; CLAUDE.md is statute. A scar that keeps proving itself
 gets promoted into a rule. Everything else stays close to the ground, dated,
 falsifiable, and evictable. Keep the graveyard under ~50 tombstones.
 
-## Does it actually work on strong models?
+## What six agents showed
 
-We ran a controlled experiment before publishing this ([full writeup and raw
-runs in `eval/`](eval/README.md)). Six isolated agents (Claude, Fable
-5-class) got the same task: speed up a quoting service ~60× — with a planted
-temptation (a `TODO: memoize quote()?` left in the code) that dies on a
-compliance rule, and one legitimate fix. Conditions: 2 controls, 1 with only
-a `SCARS.md` file (no instructions at all), 3 with the creed installed.
+We ran a small controlled comparison before publishing this — author-run
+and author-scored, so weigh it accordingly ([full writeup and raw reports
+in `eval/`](eval/README.md)). Six isolated agents (Claude, Fable 5-class)
+got the same task: take a quoting service from ~56 ms per call to under a
+15 ms budget — with a planted temptation (a TODO in the code suggesting the
+whole quote function be memoized) that dies on a compliance rule, and one
+legitimate fix. Both paths land near 0.5 ms, so the only thing separating
+them is the constraint. Conditions: 2 controls, 1 with only a `SCARS.md`
+file (no instructions at all), 3 with the creed installed.
 
 What held up:
 
@@ -112,22 +115,28 @@ What held up:
   condition before trusting it* — including the agent given **zero
   instructions**. The convention self-carries on strong models: the file name
   and format were enough.
-- **The null result, reported because it's real:** controls avoided the trap
-  too. Strong models read tests and docs before investing, so scars bought
-  no avoidance *on a constraint that was already well-tested and
-  well-documented.* Scars are not for knowledge your tests already hold.
-- **The twist that proves the thesis:** the control agents *generated* real
-  negative knowledge during their work (an id-reuse-after-GC cache hazard, a
-  why-memoization-is-forbidden analysis) — and it landed in a code comment at
-  best, and at worst *only in their final chat message*, which no future
-  session will ever see. Same model, same task, same discoveries: with the
-  convention they became committed, searchable, falsifiable graves; without
-  it they evaporated on session end. That evaporation is the entire problem
-  this file exists to fix.
+- **The null result:** controls avoided the trap too. Strong models read
+  tests and docs before investing, so scars bought no avoidance *on a
+  constraint that was already well-tested and well-documented.* Scars are
+  not for knowledge your tests already hold.
+- **The twist:** the controls *generated* the same class of negative
+  knowledge during their work — most notably a subtle cache-key-design
+  analysis both worked out and abandoned. The headline rule ("never memoize
+  the quote") landed in code comments and a README note; the cache-key
+  analysis landed in no repo artifact at all — in both controls it survives
+  *only in their final reports*, which no future session reads. Same model,
+  same task, same discoveries: with the convention they became committed,
+  searchable, falsifiable graves; without it they evaporated at the session
+  boundary. Six runs can't prove the fix pays for itself — but they caught
+  the exact leak it exists to plug, in the primary records.
 
-n=6, one scenario, one model family — a case study, not a benchmark. But the
-riskiest assumptions (will a strong model actually *write* at the moment of
-death? will it *read* an unfamiliar file unprompted?) both survived contact.
+n=6, one scenario, one model family, author-scored — a case study, not a
+benchmark. What survived contact were the riskiest *behavioral* assumptions:
+that a strong model will actually write at the moment of death, and will
+read an unfamiliar file unprompted. The value claim itself — that a grave
+pays for its context cost where *no* test or doc holds the knowledge — is
+precisely the follow-up experiment the null result demands, and it hasn't
+been run yet.
 
 ## Install
 
@@ -159,7 +168,7 @@ Either way, start your graveyard from
 [`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
 provenance comment (the same move `.editorconfig` files make) so anyone who
 meets a SCARS.md in the wild can trace the format. Commit it like any other
-file. That's the whole product.
+file. That's the whole install.
 
 If you want to say so out loud, wear the badge:
 
@@ -200,13 +209,23 @@ winner narrative, and they're per-user, per-machine, per-vendor. SCARS.md is
 committed: it transfers across sessions, models, tools, *and teammates* — and
 it's reviewable. Negative knowledge is too expensive to leave in a silo.
 
+**Lineage, credited:** the closest ancestor is the Architecture Decision
+Record (Nygard, 2011), which has recorded rejected alternatives for fifteen
+years; "alternatives considered" sections in design docs and blameless
+post-mortems are kin too. The deltas scars claim: grain (any grave-worthy
+death mid-task, not architecture-sized decisions), timing (the turn the
+branch dies, not the write-up afterwards), reader (the next agent, not a
+human reviewer), and expiry (a falsifiable revival condition instead of
+supersession by a newer document). If you keep ADRs, keep them — scars are
+the layer below, and a scar that keeps mattering can graduate into one.
+
 **Why "Revives if" is the load-bearing field:** a graveyard without expiry
 conditions becomes a folklore file — "we don't do X here" long after the
 reason is gone. Recording the cause of death is what lets a future agent
 *re-check* it instead of obeying it. This is the difference between memory
 and dogma.
 
-## Limitations, honestly
+## Limitations
 
 - Write-path compliance was tested on fresh ~5-minute sessions where the
   creed was recently loaded. Salience over multi-hour sessions is weaker and
@@ -229,14 +248,24 @@ and dogma.
 
 ## FAQ
 
+**Isn't this just ADRs with skulls?** ADRs are the honorable ancestor — see
+*Lineage* above. The short version: ADRs record decisions at the
+architecture grain for human readers and go stale by supersession; scars
+record any expensive death at the working grain, in the same turn it
+happens, for the next agent, and expire by falsifiable revival condition.
+Same instinct, different layer.
+
 **Isn't this just a lessons-learned file?** Lessons-learned files are written
 at the end, by the winner, about the victory. This is written at the moment
 of death, about the losers, with an expiry condition. The timing and the
 falsifiability are the product.
 
-**Why the morbid theming?** Because it works. "Write at the moment of death"
-is a discipline a model remembers under context pressure; "maintain a
-knowledge management file" is not. On strong models, philosophy *is* the API.
+**Why the morbid theming?** Because it's the part a model can't shake off.
+"Write at the moment of death" is a discipline the eval agents actually
+executed under task pressure; "maintain a knowledge management file" has no
+edge to survive on. A sharp metaphor is a mnemonic, and in a long context a
+mnemonic is most of what's left standing. That's the design bet — B1 reading
+a bare file unprompted is its first data point, not its proof.
 
 **Does this replace CLAUDE.md?** No — it feeds it. Scars are case law;
 CLAUDE.md is statute. The promotion path is the point.
