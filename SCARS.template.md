@@ -1,6 +1,10 @@
 # SCARS.md
 
-<!-- convention: https://github.com/johnxianren/scars -->
+<!-- convention: https://github.com/johnxianren/scars
+     Summaries are written by winners.
+     Write when the branch dies, not when the session ends.
+     Bury only what would be expensive to rediscover.
+     Every grave must say when it may reopen. -->
 
 Graveyard of dead ends. Causes of death only — conclusions live in docs.
 Read before planning work in an area; check **Revives if** before treating

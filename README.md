@@ -8,6 +8,16 @@
 A one-file convention for the negative knowledge your coding agent throws
 away: not what worked, but what died — and why.
 
+The whole idea, four lines:
+
+> Summaries are written by winners.
+> Write when the branch dies, not when the session ends.
+> Bury only what would be expensive to rediscover.
+> Every grave must say when it may reopen.
+
+Everything below is these four lines, with evidence. A human idea, with an
+executable form.
+
 ---
 
 ## The problem: summaries are written by winners
@@ -91,6 +101,55 @@ Scars are case law; CLAUDE.md is statute. A scar that keeps proving itself
 gets promoted into a rule. Everything else stays close to the ground, dated,
 falsifiable, and evictable. Keep the graveyard under ~50 tombstones.
 
+## Install
+
+**Option A — paste into CLAUDE.md / AGENTS.md** (works with any agent that
+reads repo files):
+
+```markdown
+## Scars
+This repo keeps SCARS.md at the root: causes of death for abandoned
+approaches, never conclusions. Before planning work in an area, check it
+for graves — a tombstone hands you the cause of death so you can check
+whether it still holds. At the moment you kill a branch (abandon, disprove,
+decide, or hit a wall), bury it in the same turn, silently:
+
+## [YYYY-MM-DD] <what was attempted>
+- **Died:** <cause of death, with the concrete evidence>
+- **Beaten by:** <what won instead, if anything>
+- **Revives if:** <condition under which this dead end comes back to life>
+
+No grave for deaths a future agent could re-derive in under ten minutes.
+"Revives if" is mandatory. Keep newest first, under ~50 graves. A scar that
+keeps saving time is a law — promote it to this file and strike the grave.
+```
+
+**Option B — install as a Claude Code skill:** copy [`skill/scars/`](skill/scars/)
+into `.claude/skills/` in your repo (or `~/.claude/skills/` for all repos).
+The skill is one evaluated reference implementation of the convention — the
+convention itself is just the file.
+
+Either way, start your graveyard from
+[`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
+provenance comment (the same move `.editorconfig` files make) so anyone who
+meets a SCARS.md in the wild can trace the format. Commit it like any other
+file. That's the whole install.
+
+If you want to say so out loud, wear the badge:
+
+```markdown
+[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
+```
+
+## Repos with scars
+
+Public repos keeping a graveyard. Using the convention? PR your repo onto
+this list — one line, newest first.
+
+- [johnxianren/scars](https://github.com/johnxianren/scars) — this repo,
+  dogfooded: its [SCARS.md](SCARS.md) records the dead ends of designing the
+  convention itself, including the eval hypothesis the experiment killed.
+
 ## What six agents showed
 
 We ran a small controlled comparison before publishing this — author-run
@@ -137,53 +196,6 @@ read an unfamiliar file unprompted. The value claim itself — that a grave
 pays for its context cost where *no* test or doc holds the knowledge — is
 precisely the follow-up experiment the null result demands, and it hasn't
 been run yet.
-
-## Install
-
-**Option A — paste into CLAUDE.md / AGENTS.md** (works with any agent that
-reads repo files):
-
-```markdown
-## Scars
-This repo keeps SCARS.md at the root: causes of death for abandoned
-approaches, never conclusions. Before planning work in an area, check it
-for graves — a tombstone hands you the cause of death so you can check
-whether it still holds. At the moment you kill a branch (abandon, disprove,
-decide, or hit a wall), bury it in the same turn, silently:
-
-## [YYYY-MM-DD] <what was attempted>
-- **Died:** <cause of death, with the concrete evidence>
-- **Beaten by:** <what won instead, if anything>
-- **Revives if:** <condition under which this dead end comes back to life>
-
-No grave for deaths a future agent could re-derive in under ten minutes.
-"Revives if" is mandatory. Keep newest first, under ~50 graves. A scar that
-keeps saving time is a law — promote it to this file and strike the grave.
-```
-
-**Option B — install as a Claude Code skill:** copy [`skill/scars/`](skill/scars/)
-into `.claude/skills/` in your repo (or `~/.claude/skills/` for all repos).
-
-Either way, start your graveyard from
-[`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
-provenance comment (the same move `.editorconfig` files make) so anyone who
-meets a SCARS.md in the wild can trace the format. Commit it like any other
-file. That's the whole install.
-
-If you want to say so out loud, wear the badge:
-
-```markdown
-[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
-```
-
-## Repos with scars
-
-Public repos keeping a graveyard. Using the convention? PR your repo onto
-this list — one line, newest first.
-
-- [johnxianren/scars](https://github.com/johnxianren/scars) — this repo,
-  dogfooded: its [SCARS.md](SCARS.md) records the dead ends of designing the
-  convention itself, including the eval hypothesis the experiment killed.
 
 ## Design notes
 
