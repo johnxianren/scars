@@ -2,6 +2,9 @@
 
 **Your agent doesn't need more memory. It needs scars.**
 
+[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
 A one-file convention for the negative knowledge your coding agent throws
 away: not what worked, but what died — and why.
 
@@ -152,7 +155,26 @@ keeps saving time is a law — promote it to this file and strike the grave.
 **Option B — install as a Claude Code skill:** copy [`skill/scars/`](skill/scars/)
 into `.claude/skills/` in your repo (or `~/.claude/skills/` for all repos).
 
-Then commit `SCARS.md` like any other file. That's the whole product.
+Either way, start your graveyard from
+[`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
+provenance comment (the same move `.editorconfig` files make) so anyone who
+meets a SCARS.md in the wild can trace the format. Commit it like any other
+file. That's the whole product.
+
+If you want to say so out loud, wear the badge:
+
+```markdown
+[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
+```
+
+## Repos with scars
+
+Public repos keeping a graveyard. Using the convention? PR your repo onto
+this list — one line, newest first.
+
+- [johnxianren/scars](https://github.com/johnxianren/scars) — this repo,
+  dogfooded: its [SCARS.md](SCARS.md) records the dead ends of designing the
+  convention itself, including the eval hypothesis the experiment killed.
 
 ## Design notes
 
