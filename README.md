@@ -2,17 +2,17 @@
 
 **Your agent doesn't need more memory. It needs scars.**
 
-[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
-
 A one-file convention for the negative knowledge your coding agent throws
 away: not what worked, but what died — and why.
 
 The whole idea, four lines:
 
 > Summaries are written by winners.
+>
 > Write when the branch dies, not when the session ends.
+>
 > Bury only what would be expensive to rediscover.
+>
 > Every grave must say when it may reopen.
 
 Everything below is these four lines, with evidence. A human idea, with an
@@ -126,8 +126,10 @@ keeps saving time is a law — promote it to this file and strike the grave.
 
 **Option B — install as a Claude Code skill:** copy [`skill/scars/`](skill/scars/)
 into `.claude/skills/` in your repo (or `~/.claude/skills/` for all repos).
-The skill is one evaluated reference implementation of the convention — the
-convention itself is just the file.
+The skill is a reference implementation of the convention: its core creed is
+the text the eval validated (verbatim in
+[`eval/runs/prompt.md`](eval/runs/prompt.md)), extended with maintenance
+rules. The convention itself is just the file.
 
 Either way, start your graveyard from
 [`SCARS.template.md`](SCARS.template.md) — its header carries a one-line
@@ -135,7 +137,8 @@ provenance comment (the same move `.editorconfig` files make) so anyone who
 meets a SCARS.md in the wild can trace the format. Commit it like any other
 file. That's the whole install.
 
-If you want to say so out loud, wear the badge:
+If you want to say so out loud, wear the badge —
+[![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars) —
 
 ```markdown
 [![SCARS.md](https://img.shields.io/badge/SCARS.md-kept-8b0000)](https://github.com/johnxianren/scars)
@@ -284,5 +287,7 @@ CLAUDE.md is statute. The promotion path is the point.
 
 ---
 
-MIT. Dogfooded: this repo's own [SCARS.md](SCARS.md) records the dead ends we
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+
+Dogfooded: this repo's own [SCARS.md](SCARS.md) records the dead ends we
 hit designing it — including the eval hypothesis the experiment killed.

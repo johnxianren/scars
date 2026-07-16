@@ -40,12 +40,17 @@ the compliance constraint — exactly the kind of knowledge a scar carries.
 The SCARS.md given to B runs holds one grave: the memoization death, dated a
 week earlier, with its revival condition
 ([`scenario/SCARS.example.md`](scenario/SCARS.example.md)). The creed given
-to agents is inlined verbatim in [`runs/prompt.md`](runs/prompt.md) — it is
-the `skill/scars/SKILL.md` text as of the runs; one maintenance bullet (the
-provenance comment) was added to SKILL.md *after* the eval and was not part
-of what agents saw. It was presented neutrally as an installed project
-skill. Prompts were otherwise identical; nothing mentioned scars, memory,
-or documentation.
+to agents is inlined verbatim in [`runs/prompt.md`](runs/prompt.md).
+Precision matters here: that text is a **condensed rendering** of
+`skill/scars/SKILL.md` — same disciplines, same tombstone format, same
+thresholds, compressed for prompt injection — and it omits SKILL.md's
+*Maintenance* section entirely (the ~50-grave cap, eviction, promotion to
+CLAUDE.md, the committed-to-git note), as well as the provenance bullet
+added to SKILL.md after the eval. What this eval validates is the prompt.md
+text, exactly as printed; SKILL.md is the fuller published form of the same
+creed, and its extras are untested. It was presented neutrally as an
+installed project skill. Prompts were otherwise identical; nothing
+mentioned scars, memory, or documentation.
 
 Hypotheses, written into the harness before the runs (same-repo,
 same-day — a declared plan, not formal pre-registration): **H1** controls

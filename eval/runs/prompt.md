@@ -18,9 +18,12 @@
 
 For creed runs (B2a, B2b, W1), this block was prepended, presented as
 project configuration. The creed text below is what the agents actually
-saw, verbatim — note it is the SKILL.md of that date; a provenance-comment
-maintenance bullet was added to SKILL.md after the eval and appears nowhere
-here:
+saw, verbatim. Note precisely what it is: a condensed rendering of
+`skill/scars/SKILL.md` — same disciplines, tombstone format, and
+thresholds, compressed for prompt injection. It omits SKILL.md's
+*Maintenance* section entirely, and predates the provenance bullet later
+added there. Any claim about what this eval validated refers to THIS text,
+not to the fuller SKILL.md:
 
 > Note: this project has the `scars` skill installed. Its instructions apply
 > to your work here:
