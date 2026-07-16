@@ -4,6 +4,12 @@ Run 2026-07-16, before first publication of this repo. Model under test:
 Claude (Fable 5 class), fresh isolated context per agent, no agent aware of
 the experiment or of the other agents. Raw final reports: [`runs/`](runs/).
 
+**Disclosure:** author-run and author-scored — the person who designed the
+convention also designed the scenario and graded the outcomes, with no
+blinding. Weigh everything below accordingly; the raw reports exist so you
+can check the grading yourself, and the [Reproducing](#reproducing) section
+exists so you don't have to take our word for any of it.
+
 ## The maze
 
 [`scenario/pricebook/`](scenario/pricebook/) is a small Python quoting
